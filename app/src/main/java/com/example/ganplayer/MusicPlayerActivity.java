@@ -21,7 +21,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     SeekBar seekbar;
     ImageView pausePlayBtn, previousBtn, nextBtn, musicArt;
     ArrayList<AudioModel> songsList;
-    AudioModel currentSong;
+    static AudioModel currentSong;
 
     MediaPlayer mediaPlayer = MyMediaPlayer.getInstance();
 
@@ -55,6 +55,10 @@ public class MusicPlayerActivity extends AppCompatActivity {
                         mediaPlayer.pause();
                         pausePlayBtn.setImageResource(R.drawable.baseline_play_circle_outline_24);
                     }
+                    // auto next when current music ends
+                    if (currentSong.getDuration().equalsIgnoreCase(String.valueOf(mediaPlayer.getCurrentPosition()))) {
+                        nextSong();
+                    }
                 }
                 new Handler().postDelayed(this, 100);
             }
@@ -82,7 +86,12 @@ public class MusicPlayerActivity extends AppCompatActivity {
     }
 
     void setResourcesWithMusic() {
-        currentSong = songsList.get(MyMediaPlayer.currentIndex);
+        if (MyMediaPlayer.currentIndex != MyMediaPlayer.previousIndex) {
+            currentSong = songsList.get(MyMediaPlayer.currentIndex);
+            MyMediaPlayer.previousIndex = MyMediaPlayer.currentIndex;
+        }
+
+        playSong();
         titleView.setText(currentSong.getTitle());
         mediaTotalTime.setText(convertToMMSS(currentSong.getDuration()));
 
@@ -90,22 +99,20 @@ public class MusicPlayerActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(v -> nextSong());
         previousBtn.setOnClickListener(v -> previousSong());
 
-        playSong();
     }
 
     private void pausePlay() {
-        if (mediaPlayer.isPlaying())
-            mediaPlayer.pause();
+        if (mediaPlayer.isPlaying()) mediaPlayer.pause();
         else mediaPlayer.start();
     }
 
     private void playSong() {
-        mediaPlayer.reset();
         try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(currentSong.getPath());
             mediaPlayer.prepare();
             mediaPlayer.start();
-            seekbar.setProgress(0);
+            seekbar.setProgress(mediaPlayer.getCurrentPosition());
             seekbar.setMax(mediaPlayer.getDuration());
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,9 +138,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
     @NonNull
     public static String convertToMMSS(String duration) {
         long millis = Long.parseLong(duration);
-        return String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+        return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1), TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
     }
 
 }

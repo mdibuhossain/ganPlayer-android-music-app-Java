@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +28,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recycler_item, parent, false);
-        return new MusicAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -35,7 +36,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         AudioModel songData = songsList.get(position);
         holder.musicTitle.setText(songData.getTitle());
         holder.itemView.setOnClickListener(v -> {
-//            Log.d("YOYO", songData.getTitle());
             MyMediaPlayer.getInstance().reset();
             MyMediaPlayer.currentIndex = position;
             Intent intent = new Intent(context, MusicPlayerActivity.class);
@@ -50,10 +50,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         return songsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView musicTitle;
         ImageView musicIcon;
+
         public ViewHolder(View itemView) {
             super(itemView);
             musicTitle = itemView.findViewById(R.id.music_title_view);

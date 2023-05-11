@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/songs_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="SONGS"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:layout_centerHorizontal="true"/>
+        android:text="SONGS"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/no_songs_text"
@@ -23,14 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="NO SONGS FOUND"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/songs_text"/>
+        android:layout_below="@+id/songs_text" />
 
-
-    
 </RelativeLayout>

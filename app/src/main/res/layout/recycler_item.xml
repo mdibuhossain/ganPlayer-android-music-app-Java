@@ -9,26 +9,34 @@
     android:layout_marginRight="5dp"
     android:clickable="true"
     android:focusable="true"
-    android:background="#FF6D00"
-    android:padding="10dp">
+    android:background="#FF6D00">
 
-    <ImageView
-        android:id="@+id/music_icon_view"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/music" />
-
-    <TextView
-        android:id="@+id/music_title_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/music_icon_view"
-        android:textColor="@color/white"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:padding="10dp"
-        tools:text="Music" />
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/music_icon_view"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/music" />
+
+        <TextView
+            android:id="@+id/music_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/music_icon_view"
+            android:textColor="@color/white"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="10dp"
+            tools:text="Music" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
