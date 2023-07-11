@@ -13,15 +13,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
 
     ArrayList<AudioModel> songsList;
+    ArrayList<AudioModel> filterSongsList;
     Context context;
 
     public MusicAdapter(ArrayList<AudioModel> songsList, Context context) {
         this.songsList = songsList;
+        this.filterSongsList = new ArrayList<>(songsList);
         this.context = context;
     }
 
@@ -61,4 +64,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
             musicIcon = itemView.findViewById(R.id.music_icon_view);
         }
     }
+
+    public void addAll(ArrayList<AudioModel> tmp) {
+        this.songsList = new ArrayList<>(tmp);
+        notifyDataSetChanged();
+    }
+
 }

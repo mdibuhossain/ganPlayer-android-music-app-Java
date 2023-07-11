@@ -8,14 +8,13 @@
     android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
     android:clickable="true"
-    android:focusable="true"
-    android:background="#FF6D00">
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="@drawable/rounded"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/music_icon_view"
@@ -30,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/music_icon_view"
-            android:textColor="@color/white"
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="10dp"
+            android:textColor="@color/white"
             tools:text="Music" />
 
     </RelativeLayout>
